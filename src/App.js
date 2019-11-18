@@ -1,6 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home, About, Contact, NestedUsers, Users, SignUp } from "./components";
+import SignIn from "./components/SignIn";
+import Home from "./components/Home";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import NestedUsers from "./components/NestedUsers";
+import Users from "./components/Users";
+import SignUp from "./components/SignUp";
 
 function App() {
   return (
@@ -15,6 +21,9 @@ function App() {
           </Route>
           <Route path="/contact" exact={true}>
             <Contact />
+          </Route>
+          <Route path="/signin" exact={true}>
+            <SignIn />
           </Route>
           <Route path="/signup" exact={true}>
             <SignUp />

@@ -19,6 +19,9 @@ export default function Header() {
           <Link to="/users">Users</Link>
         </li>
         <li style={{ margin: "0 10px" }}>
+          <Link to="/signin">Sign In</Link>
+        </li>
+        <li style={{ margin: "0 10px" }}>
           <Link to="/signup">Sign Up</Link>
         </li>
       </ul>
