@@ -1,12 +1,14 @@
-import React from "react";
-
-import Header from "./Header";
+import React, { Fragment } from "react";
+import About from "./About";
 
 export default function Contact() {
   return (
-    <div>
-      <Header />
-      <p>Ini Contact</p>
-    </div>
+    <Fragment>
+      <div>
+        <Header />
+        <p>Ini adalah Contact</p>
+      </div>
+      <About />
+    </Fragment>
   );
 }

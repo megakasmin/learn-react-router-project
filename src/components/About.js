@@ -1,12 +1,15 @@
 import React from "react";
-
-import Header from "./Header";
+import ClassComponent from "./ClassComponent";
+import Hooks from "./Hooks";
 
 export default function About() {
   return (
     <div>
-      <Header />
-      <p>Ini About</p>
+      <p>Ini adalah About</p>
+      <p>Hooks</p>
+      <Hooks />
+      <p>Class Component</p>
+      <ClassComponent />
     </div>
   );
 }

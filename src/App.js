@@ -13,8 +13,8 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route path="/" exact={true}>
-            <Home />
+          <Route path="/signup" exact={true}>
+            <SignUp />
           </Route>
           <Route path="/about" exact={true}>
             <About />
@@ -25,8 +25,8 @@ function App() {
           <Route path="/signin" exact={true}>
             <SignIn />
           </Route>
-          <Route path="/signup" exact={true}>
-            <SignUp />
+          <Route path="/" exact={true}>
+            <Home />
           </Route>
           <Route path="/users" exact={true}>
             <Users />
