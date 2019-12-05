@@ -9,10 +9,10 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container"
-import axios from "axios"
-import { Formik, ErrorMessage } from "formik"
-import { loginValidation} from "../validate" 
+import Container from "@material-ui/core/Container";
+import { Formik, ErrorMessage } from "formik";
+import { loginValidation } from "../validate";
+import {axios} from "../helpers"
 
 function Copyright() {
   return (
@@ -29,9 +29,9 @@ function Copyright() {
 
 const useStyles = makeStyles(theme => ({
   "@global": {
-      body: {
-          backgroundColor: theme.palette.common.white
-      }
+    body: {
+      backgroundColor: theme.palette.common.white
+    }
   },
   paper: {
     margin: theme.spacing(8),
@@ -52,7 +52,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
 function SignIn(props) {
   const classes = useStyles();
 
@@ -60,121 +59,117 @@ function SignIn(props) {
 
   return (
     <Container component="main" maxWidth="xs">
-    <CssBaseline />
-    <div className={classes.paper}>
+      <CssBaseline />
+      <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+          <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-            Sign in
+          Sign in
         </Typography>
         <Formik
-            initialValues={{
-                email: "",
-                password: ""
-            }}
-            validate={loginValidation}
-            onSubmit={values => {
-                axios
-                    .post(`${API}/user/login`, values)
-                    .then(response => {
-                        if (response.status === 200) {
-                            localStorage.setItem(
-                                "user",
-                                JSON.stringify(response.data.data)
-                            );
-                            localStorage.setItem("isLogin", true);
-                            props.history.push("/todo");
-                        }
-                    });
-            }}
+          initialValues={{
+            email: "",
+            password: ""
+          }}
+          validate={loginValidation}
+          onSubmit={values => {
+            axios()
+              .post(`/user/login`, values)
+              .then(response => {
+                if (response.status === 200) {
+                  localStorage.setItem(
+                    "user",
+                    JSON.stringify(response.data.data)
+                  );
+                  localStorage.setItem("token", true);
+                  props.history.push("/todo");
+                }
+              });
+          }}
         >
-            {({
-                values,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting
-            }) => (
-                <form
-                    className={classes.form}
-                    noValidate
-                    onSubmit={handleSubmit}
-                >
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                        defaultValue={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                    />
-                    <p
-                        style={{
-                            color: "red",
-                            fontStyle: "italic"
-                        }}
-                    >
-                        <ErrorMessage name="email" />
-                    </p>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        defaultValue={values.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                    />
-                    <p
-                        style={{
-                            color: "red",
-                            fontStyle: "italic"
-                        }}
-                    >
-                        <ErrorMessage name="password" />
-                    </p>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Sign In
-                    </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                                Forgot password?
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link to="/signup" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
-                    </Grid>
-                </form>
-            )}
+          {({
+            values,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting
+          }) => (
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                defaultValue={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <p
+                style={{
+                  color: "red",
+                  fontStyle: "italic"
+                }}
+              >
+                <ErrorMessage name="email" />
+              </p>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                defaultValue={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              <p
+                style={{
+                  color: "red",
+                  fontStyle: "italic"
+                }}
+              >
+                <ErrorMessage name="password" />
+              </p>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link to="/signup" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          )}
         </Formik>
-    </div>
-    <Box mt={8}>
+      </div>
+      <Box mt={8}>
         <Copyright />
-    </Box>
-</Container>
-);
+      </Box>
+    </Container>
+  );
 }
 
 export default withRouter(SignIn);

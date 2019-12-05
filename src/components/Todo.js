@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
@@ -12,8 +11,8 @@ import Swal from "sweetalert2";
 import { Formik, ErrorMessage } from "formik";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { verify, axios } from "../helpers"
 
-const API = process.env.REACT_APP_API_LIVE;
 
 export default class Todo extends Component {
     constructor(props) {
@@ -27,10 +26,8 @@ export default class Todo extends Component {
     }
 
     fetch = () => {
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        axios
-            .get(`${API}/todo/email/${user.email}`)
+        axios()
+            .get(`todo/email/${verify().email}`)
             .then(response => {
                 this.setState({ todos: response.data.data });
             })
@@ -44,8 +41,8 @@ export default class Todo extends Component {
     };
 
     deleteOne = id => {
-        axios
-            .delete(`${API}/todo/${id}`)
+        axios()
+            .delete(`/todo/${id}`)
             .then(response => {
                 if (response.status === 200) {
                     Swal.fire(
@@ -61,12 +58,11 @@ export default class Todo extends Component {
     };
 
     addOne = values => {
-        const user = JSON.parse(localStorage.getItem("user"));
-        axios
-            .post(`${API}/todo`, {
+        axios()
+            .post(`/todo`, {
                 ...values,
-                name: user.firstName,
-                email: user.email
+                name: verify().firstName,
+                email: verify().email
             })
             .then(response => {
                 if (response.status === 201) {
@@ -79,14 +75,15 @@ export default class Todo extends Component {
     editOne = id => {
         this.setState({ edit: true });
 
-        axios.get(`${API}/todo/${id}`).then(response => {
+        axios()
+        .get(`/todo/${id}`).then(response => {
             this.setState({ todo: response.data.data.todo });
         });
     };
 
     updateOne = values => {
-        axios
-            .put(`${API}/todo/`, {
+        axios()
+            .put(`/todo/`, {
                 ...values
             })
             .then(response => {

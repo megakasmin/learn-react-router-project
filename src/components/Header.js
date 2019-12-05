@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
 import { withRouter } from "react-router-dom";
-import MemberHeader from "./member/Header";
-import GuestHeader from "./guest/Header";
+import MemberHeader from "./Member/Header";
+import GuestHeader from "./Guest/Header";
 
 function Header() {
   return (
     <Fragment>
       {JSON.parse(
-        localStorage.getItem("isLogin") !== true ? (
+        localStorage.getItem("token") !== true ? (
           <GuestHeader />
         ) : (
           <MemberHeader />
